@@ -1,0 +1,30 @@
+{
+  "name": "random-colors",
+  "version": "0.1.0",
+  "description": "return random colors",
+  "main": "test.js",
+  "scripts": {
+    "lint": "eslint package.json 'src/**/**.js' 'tests/**/**.js'",
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpw/randomColors"
+  },
+  "author": "github@lwelsh.com",
+  "license": "ISC",
+  "bugs": {
+  },
+  "keywords": [
+  ],
+  "homepage": "https://github.com/lpw/command-line-parser#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "debug": "*",
+    "eslint": "*",
+    "eslint-plugin-json": "*",
+    "mock-stdin": "*",
+    "sinon": "*"
+  }
+}
