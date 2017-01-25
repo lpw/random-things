@@ -1,7 +1,14 @@
 # random-things
 
 ## Quick example
+after
 ```
+npm i random-things
+```
+then
+```
+const {RandomThings} = require( 'random-things' )
+
 const randomColors = new RandomThings( 'red', 'green', 'blue', 'yellow' )
 
 const randomColor1 = randomColors.get()  // will be one of 'red', 'green', 'blue', 'yellow'
@@ -24,7 +31,7 @@ where a ```get()``` call on an instance of an object from any of these classes w
 Simply returns one of the things at random form those things passed into the constructor.
 
 ### RandomThingsNoBackToBack
-Returns one of the things with the guarantee it will not be the same as the previos get.
+Returns one of the things with the guarantee it will not be the same as the previous get.
 
 ### RandomThingsOnceEach
 Returns one of the things with the guarantee that each thing will be returned.  Once each of the things have been returned, upon the next get, undefined will be returned.
@@ -35,3 +42,19 @@ Returns one of the things with the guarantee that each thing will be returned.  
 ### RandomThingsOnceEachAndRepeatSame
 Returns one of the things with the guarantee that each thing will be returned.  Once each of the things have been returned, one of those same things will be returned from a the same sequence of those previosly returned things.
 
+## if things are in an array, use the ... operator to spread that array to the constructor
+```
+const randomColors = new RandomThings( ...[ 'red', 'green', 'blue', 'yellow' ] )
+```
+
+## devs: install, lint, and test of random-things
+```
+npm install
+```
+```
+npm run lint
+```
+```
+npm run test
+```
+This module is generally isomorphic, but older browsers might have some trouble with ```...```.

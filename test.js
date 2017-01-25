@@ -180,4 +180,11 @@ describe( 'RandomThings', function() {
 			})
 		}
 	})
+
+	it( 'RandomThings returns one of the things when things are passed as an array into the constructor', function() {
+		const randomThings = new RandomThings( ...[ 'red', 'green', 'blue', 'yellow' ] )
+		const thing = randomThings.get()
+		expect( thing ).to.be.oneOf([ 'red', 'green', 'blue', 'yellow' ])
+	})
+
 })
