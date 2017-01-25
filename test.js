@@ -6,7 +6,7 @@ const {
 	RandomThingsOnceEach,
 	RandomThingsOnceEachAndRepeat,
 	RandomThingsOnceEachAndRepeatSame
-} = require( './RandomThings' )
+} = require( './' )
 
 describe( 'RandomThings', function() {
 

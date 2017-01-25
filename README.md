@@ -57,4 +57,4 @@ npm run lint
 ```
 npm run test
 ```
-This module is generally isomorphic, but older browsers might have some trouble with ```...```.
+This module is generally isomorphic, but older browsers and maybe even some older versions of node might have some trouble with the use of the spread operator ```...```.
