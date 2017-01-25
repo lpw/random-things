@@ -1,6 +1,6 @@
 {
-  "name": "random-colors",
-  "version": "0.1.0",
+  "name": "random-things",
+  "version": "0.1.1",
   "description": "return random things from constructor",
   "main": "index.js",
   "scripts": {

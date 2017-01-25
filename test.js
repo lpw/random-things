@@ -11,13 +11,13 @@ const {
 describe( 'RandomThings', function() {
 
 	it( 'RandomThings returns one of the things', function() {
-		const randomThings = new RandomThings( 'red', 'green', 'blue', 'yellow' )
+		const randomThings = new RandomThings( [ 'red', 'green', 'blue', 'yellow' ] )
 		const thing = randomThings.get()
 		expect( thing ).to.be.oneOf([ 'red', 'green', 'blue', 'yellow' ])
 	})
 
 	it( 'RandomThingsNoBackToBack never returns the same thing twice in a row', function() {
-		const randomThings = new RandomThingsNoBackToBack( 'red', 'green', 'blue', 'yellow' )
+		const randomThings = new RandomThingsNoBackToBack( [ 'red', 'green', 'blue', 'yellow' ] )
 		let lastThing = randomThings.get()
 		for( let i = 0 ; i < 100 ; i++ ) {
 			const nextThing = randomThings.get()
@@ -26,12 +26,22 @@ describe( 'RandomThings', function() {
 		}
 	})
 
-	it( 'RandomThingsNoBackToBack should crash with only one thing', function() {
-		expect( () => new RandomThingsNoBackToBack( 'red' ) ).to.throw()
+	// instead of failing, expect back-to-back gets to be the same when there's only one thing
+	// it( 'RandomThingsNoBackToBack should crash with only one thing', function() {
+	// 	expect( () => new RandomThingsNoBackToBack( [ 'red' ] ) ).to.throw()
+	// })
+	it( 'RandomThingsNoBackToBack should return the same thing with only one thing', function() {
+		const randomThings = new RandomThingsNoBackToBack( [ 'red' ] )
+		let lastThing = randomThings.get()
+		for( let i = 0 ; i < 100 ; i++ ) {
+			const nextThing = randomThings.get()
+			expect( lastThing ).to.equal( nextThing )
+			lastThing = nextThing
+		}
 	})
 
 	it( 'RandomThingsOnceEach returns one of each of the things then undefined', function() {
-		const randomThings = new RandomThingsOnceEach( 'red', 'green', 'blue', 'yellow' )
+		const randomThings = new RandomThingsOnceEach( [ 'red', 'green', 'blue', 'yellow' ] )
 		const set = new Set()
 		let thing
 
@@ -66,7 +76,7 @@ describe( 'RandomThings', function() {
 	})
 
 	it( 'RandomThingsOnceEachAndRepeat returns one of each of the things then cycles', function() {
-		const randomThings = new RandomThingsOnceEachAndRepeat( 'red', 'green', 'blue', 'yellow' )
+		const randomThings = new RandomThingsOnceEachAndRepeat( [ 'red', 'green', 'blue', 'yellow' ] )
 		const set = new Set()
 		let thing
 
@@ -98,7 +108,7 @@ describe( 'RandomThings', function() {
 	})
 
 	it( 'RandomThingsOnceEachAndRepeatSame returns one of each of the things then cycles the same again', function() {
-		const randomThings = new RandomThingsOnceEachAndRepeatSame( 'red', 'green', 'blue', 'yellow' )
+		const randomThings = new RandomThingsOnceEachAndRepeatSame( [ 'red', 'green', 'blue', 'yellow' ] )
 		const array = []
 		let index = 0
 		let thing
@@ -174,17 +184,25 @@ describe( 'RandomThings', function() {
 				RandomThingsOnceEachAndRepeatSame
 		 ] ) {
 			it( `${type.name}`, function() {
-				const randomThings = new type( 'red' )
+				const randomThings = new type( [ 'red' ] )
 				const thing = randomThings.get()
 				expect( thing ).to.be.oneOf([ 'red' ])
 			})
 		}
 	})
 
-	it( 'RandomThings returns one of the things when things are passed as an array into the constructor', function() {
-		const randomThings = new RandomThings( ...[ 'red', 'green', 'blue', 'yellow' ] )
+	it( 'RandomThings should do best it can when things are not an array (string)', function() {
+		// expect( () => new RandomThings( 'red' ) ).to.throw()
+		const randomThings = new RandomThings( 'red' )
 		const thing = randomThings.get()
-		expect( thing ).to.be.oneOf([ 'red', 'green', 'blue', 'yellow' ])
+		expect( thing ).to.be.oneOf( Array.from( 'red' ) )
+	})
+
+	it( 'RandomThings should do best it can when things are not an array (number)', function() {
+		// expect( () => new RandomThings( 12 ) ).to.throw()
+		const randomThings = new RandomThings( 12 )
+		const thing = randomThings.get()
+		expect( thing ).to.be.equal( 12 )
 	})
 
 })

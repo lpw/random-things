@@ -1,8 +1,9 @@
-const assert = require( 'assert' )
-
 class RandomThings {
-	constructor( ...things ) {
-		this._things = things
+	constructor( things = [] ) {
+		this._things = Array.from( things )
+		if ( !Array.isArray( things ) && this._things.length === 0 ) {
+			this._things = [ things ]
+		}
 	}
 
 	get() {
@@ -14,14 +15,13 @@ class RandomThings {
 }
 
 class RandomThingsNoBackToBack extends RandomThings {
-	constructor( ...things ) {
-		super( ...things )
-		assert( things.length > 1 )	// or should it just return back to back anyways? or undefined?
+	constructor( things ) {
+		super( things )
 	}
 
 	get() {
 		const thing = super.get()
-		if( thing === this._lastThing ) {
+		if( thing === this._lastThing && this._things.length > 1 ) {
 			return this.get()
 		} else {
 			this._lastThing = thing
@@ -31,8 +31,8 @@ class RandomThingsNoBackToBack extends RandomThings {
 }
 
 class RandomThingsOnceEach extends RandomThings {
-	constructor( ...things ) {
-		super( ...things )
+	constructor( things ) {
+		super( things )
 	}
 
 	get() {
@@ -45,8 +45,8 @@ class RandomThingsOnceEach extends RandomThings {
 }
 
 class RandomThingsOnceEachAndRepeat extends RandomThings {
-	constructor( ...things ) {
-		super( ...things )
+	constructor( things ) {
+		super( things )
 		this._originalThings = things
 	}
 
@@ -63,8 +63,8 @@ class RandomThingsOnceEachAndRepeat extends RandomThings {
 }
 
 class RandomThingsOnceEachAndRepeatSame extends RandomThings {
-	constructor( ...things ) {
-		super( ...things )
+	constructor( things ) {
+		super( things )
 		this._orderedThings = []
 		this._index = 0
 	}
@@ -72,7 +72,6 @@ class RandomThingsOnceEachAndRepeatSame extends RandomThings {
 	get() {
 		if( this._things.length > 0 ) {
 			const thing = super.get()
-			assert( thing )
 			this._things = this._things.filter( t => t != thing )
 			this._orderedThings.push( thing )
 			return thing
