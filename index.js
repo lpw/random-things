@@ -1,9 +1,6 @@
 class RandomThings {
-	constructor( things = [] ) {
-		this._things = Array.from( things )
-		if ( !Array.isArray( things ) && this._things.length === 0 ) {
-			this._things = [ things ]
-		}
+	constructor( ...things ) {
+		this._things = things
 	}
 
 	get() {
@@ -15,8 +12,8 @@ class RandomThings {
 }
 
 class RandomThingsNoBackToBack extends RandomThings {
-	constructor( things ) {
-		super( things )
+	constructor( ...things ) {
+		super( ...things )
 	}
 
 	get() {
@@ -31,8 +28,8 @@ class RandomThingsNoBackToBack extends RandomThings {
 }
 
 class RandomThingsOnceEach extends RandomThings {
-	constructor( things ) {
-		super( things )
+	constructor( ...things ) {
+		super( ...things )
 	}
 
 	get() {
@@ -45,8 +42,8 @@ class RandomThingsOnceEach extends RandomThings {
 }
 
 class RandomThingsOnceEachAndRepeat extends RandomThings {
-	constructor( things ) {
-		super( things )
+	constructor( ...things ) {
+		super( ...things )
 		this._originalThings = things
 	}
 
@@ -63,8 +60,8 @@ class RandomThingsOnceEachAndRepeat extends RandomThings {
 }
 
 class RandomThingsOnceEachAndRepeatSame extends RandomThings {
-	constructor( things ) {
-		super( things )
+	constructor( ...things ) {
+		super( ...things )
 		this._orderedThings = []
 		this._index = 0
 	}

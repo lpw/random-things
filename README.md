@@ -9,7 +9,7 @@ then
 ```
 const {RandomThings} = require( 'random-things' )
 
-const randomColors = new RandomThings( [ 'red', 'green', 'blue', 'yellow' ] )
+const randomColors = new RandomThings( 'red', 'green', 'blue', 'yellow' )
 
 const randomColor1 = randomColors.get()  // will be one of 'red', 'green', 'blue', 'yellow'
 const randomColor2 = randomColors.get()  // will be one of 'red', 'green', 'blue', 'yellow'
@@ -42,7 +42,17 @@ Returns one of the things with the guarantee that each thing will be returned.  
 ### RandomThingsOnceEachAndRepeatSame
 Returns one of the things with the guarantee that each thing will be returned.  Once each of the things have been returned, one of those same things will be returned from a the same sequence of those previosly returned things.
 
-## devs: install, lint, and test of random-things
+## Misc
+This module is isomorphic.
+
+This module uses ES6 features like spread operator and destructuring assignment.
+
+If your things are already in an array and you want to keep them that way, spread them into the constructor with the spread operator like:
+```
+const randomColors = new RandomThings( ...[ 'red', 'green', 'blue', 'yellow' ] )
+```
+
+## Module devs: install, lint, and test of random-things
 ```
 npm install
 ```
@@ -52,4 +62,3 @@ npm run lint
 ```
 npm run test
 ```
-This module is isomorphic.
